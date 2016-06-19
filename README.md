@@ -1,26 +1,27 @@
-# Ember-checkbox-with-label
+# ember-checkbox-with-label
+[![npm version](https://badge.fury.io/js/ember-checkbox-with-label.svg)](https://badge.fury.io/js/ember-checkbox-with-label)
+[![Build Status](https://travis-ci.org/kellyselden/ember-checkbox-with-label.svg?branch=master)](https://travis-ci.org/kellyselden/ember-checkbox-with-label)
 
-This README outlines the details of collaborating on this Ember addon.
+Ember component for a checkbox wrapped in a label
 
-## Installation
+Ember 2+ only
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+## Usage
 
-## Running
+```hbs
+{{checkbox-with-label
+  checked=checked
+  text="text goes here"
+  update=(action (mut checked))
+}}
+```
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+or with positional params
 
-## Running Tests
-
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+```hbs
+{{checkbox-with-label
+  checked
+  "text goes here"
+  update=(action (mut checked))
+}}
+```
