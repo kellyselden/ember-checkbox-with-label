@@ -12,6 +12,7 @@ Ember component for a checkbox wrapped in a label
 {{checkbox-with-label
   checked=checked
   text="text goes here"
+  disabled=disabled
   update=(action (mut checked))
 }}
 ```
@@ -22,6 +23,7 @@ or with positional params
 {{checkbox-with-label
   checked
   "text goes here"
+  disabled=disabled
   update=(action (mut checked))
 }}
 ```
