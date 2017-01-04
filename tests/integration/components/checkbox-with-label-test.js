@@ -69,3 +69,40 @@ test('it renders an updated bool', function(assert) {
 
   assert.strictEqual(this.$('input[type=checkbox]:checked').length, 1);
 });
+
+test('it can disable the checkbox', function(assert) {
+  this.render(hbs`
+    {{checkbox-with-label disabled=true}}
+  `);
+
+  assert.ok(this.$('input[type=checkbox]').is(':disabled'));
+});
+
+test('updates disabling of the checkbox when the disabled attr changes', function(assert) {
+  this.set('isDisabled', false);
+
+  this.render(hbs`
+    {{checkbox-with-label disabled=isDisabled}}
+  `);
+
+  assert.notOk(this.$('input[type=checkbox]').is(':disabled'));
+
+  this.set('isDisabled', true);
+
+  assert.ok(this.$('input[type=checkbox]').is(':disabled'));
+});
+
+test('clicking does not update the checkbox when disabled', function(assert) {
+  this.set('checked', false);
+
+  this.render(hbs`
+    {{checkbox-with-label
+      checked
+      disabled=true}}
+  `);
+
+  this.$('input[type=checkbox]').click();
+
+  assert.notOk(this.$('input[type=checkbox]').is(':checked'));
+  assert.notOk(this.get('checked'));
+});
