@@ -6,6 +6,10 @@
 
 Ember component for a checkbox wrapped in a label
 
+## Demo
+
+http://kellyselden.github.io/ember-checkbox-with-label
+
 ## Usage
 
 ```hbs
