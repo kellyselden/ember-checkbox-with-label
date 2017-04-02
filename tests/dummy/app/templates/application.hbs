@@ -1,0 +1,30 @@
+<h1>checkbox-with-label</h1>
+
+<h3>Options</h3>
+
+<div>
+  {{input value=text}}
+</div>
+
+<div>
+  {{checkbox-with-label
+    disabled
+    "is disabled"
+    update=(action (mut disabled))
+  }}
+</div>
+
+<h3>Result</h3>
+
+<div>
+  {{checkbox-with-label
+    checked
+    text
+    disabled=disabled
+    update=(action (mut checked))
+  }}
+</div>
+
+<div>
+  Checked: {{checked}}
+</div>
