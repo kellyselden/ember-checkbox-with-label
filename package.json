@@ -1,6 +1,6 @@
 {
   "name": "ember-checkbox-with-label",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "description": "Ember component for a checkbox wrapped in a label",
   "keywords": [
     "checkbox",
