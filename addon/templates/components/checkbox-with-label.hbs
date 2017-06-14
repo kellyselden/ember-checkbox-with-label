@@ -3,4 +3,9 @@
   onchange={{action "toggleChecked" value="target.value"}}
   disabled={{disabled}}
 />
-{{text}}
+
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{text}}
+{{/if}}
