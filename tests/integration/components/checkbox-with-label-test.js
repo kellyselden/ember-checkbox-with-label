@@ -21,6 +21,16 @@ test('it renders your text', function(assert) {
   assert.strictEqual(this.$().text().trim(), 'my test text');
 });
 
+test('it renders your text as block', function(assert) {
+  this.render(hbs`
+    {{#checkbox-with-label}}
+      my test text
+    {{/checkbox-with-label}}
+  `);
+
+  assert.strictEqual(this.$().text().trim(), 'my test text');
+});
+
 test('clicking updates a bool', function(assert) {
   this.render(hbs`
     {{checkbox-with-label

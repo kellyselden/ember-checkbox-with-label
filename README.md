@@ -32,3 +32,15 @@ or with positional params
   update=(action (mut checked))
 }}
 ```
+
+or with a content block
+
+```hbs
+{{#checkbox-with-label
+  checked
+  disabled=disabled
+  update=(action (mut checked))
+}}
+  text goes here
+{{/checkbox-with-label}}
+```
