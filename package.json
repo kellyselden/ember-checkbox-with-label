@@ -48,6 +48,6 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "http://kellyselden.github.io/ember-checkbox-with-label"
+    "demoURL": "https://kellyselden.github.io/ember-checkbox-with-label"
   }
 }
