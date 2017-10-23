@@ -1,10 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get } from '@ember/object';
 import layout from '../templates/components/checkbox-with-label';
-
-const {
-  Component,
-  get
-} = Ember;
 
 const MyComponent = Component.extend({
   layout,
