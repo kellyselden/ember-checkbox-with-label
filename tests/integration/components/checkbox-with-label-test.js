@@ -1,118 +1,128 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, click, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('checkbox-with-label', 'Integration | Component | checkbox with label', {
-  integration: true
-});
+module('Integration | Component | checkbox with label', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it has a class', function(assert) {
-  this.render(hbs`{{checkbox-with-label}}`);
+  test('it has a class', async function(assert) {
+    await render(hbs`{{checkbox-with-label}}`);
 
-  assert.strictEqual(this.$('.checkbox-with-label').length, 1);
-});
+    assert.ok(find('.checkbox-with-label'));
+  });
 
-test('it renders your text', function(assert) {
-  this.render(hbs`
-    {{checkbox-with-label
-      text="my test text"
-    }}
-  `);
+  test('it renders your text', async function(assert) {
+    await render(hbs`
+      {{checkbox-with-label
+        text="my test text"
+      }}
+    `);
 
-  assert.strictEqual(this.$().text().trim(), 'my test text');
-});
+    assert.strictEqual(find('*').textContent.trim(), 'my test text');
+  });
 
-test('it renders your text as block', function(assert) {
-  this.render(hbs`
-    {{#checkbox-with-label}}
-      my test text
-    {{/checkbox-with-label}}
-  `);
+  test('it renders your text as block', async function(assert) {
+    await render(hbs`
+      {{#checkbox-with-label}}
+        my test text
+      {{/checkbox-with-label}}
+    `);
 
-  assert.strictEqual(this.$().text().trim(), 'my test text');
-});
+    assert.strictEqual(find('*').textContent.trim(), 'my test text');
+  });
 
-test('clicking updates a bool', function(assert) {
-  this.render(hbs`
-    {{checkbox-with-label
-      update=(action (mut checked))
-    }}
-  `);
+  test('clicking updates a bool', async function(assert) {
+    await render(hbs`
+      {{checkbox-with-label
+        update=(action (mut checked))
+      }}
+    `);
 
-  this.$('input[type=checkbox]').click();
+    assert.notOk(this.get('checked'));
 
-  assert.strictEqual(this.get('checked'), true);
-});
+    await click('input[type=checkbox]');
 
-test('clicking the label clicks the checkbox', function(assert) {
-  this.render(hbs`
-    {{checkbox-with-label
-      update=(action (mut checked))
-    }}
-  `);
+    assert.strictEqual(this.get('checked'), true);
+  });
 
-  this.$('label').click();
+  test('clicking the label clicks the checkbox', async function(assert) {
+    await render(hbs`
+      {{checkbox-with-label
+        update=(action (mut checked))
+      }}
+    `);
 
-  assert.strictEqual(this.get('checked'), true);
-});
+    assert.notOk(this.get('checked'));
 
-test('it renders a bool', function(assert) {
-  this.set('checked', true);
+    await click('label');
 
-  this.render(hbs`
-    {{checkbox-with-label
-      checked
-    }}
-  `);
+    assert.strictEqual(this.get('checked'), true);
+  });
 
-  assert.strictEqual(this.$('input[type=checkbox]:checked').length, 1);
-});
+  test('it renders a bool', async function(assert) {
+    this.set('checked', true);
 
-test('it renders an updated bool', function(assert) {
-  this.render(hbs`
-    {{checkbox-with-label
-      checked
-      update=(action (mut checked))
-    }}
-  `);
+    await render(hbs`
+      {{checkbox-with-label
+        checked
+      }}
+    `);
 
-  this.$('input[type=checkbox]').click();
+    assert.ok(find('input[type=checkbox]:checked'));
+  });
 
-  assert.strictEqual(this.$('input[type=checkbox]:checked').length, 1);
-});
+  test('it renders an updated bool', async function(assert) {
+    await render(hbs`
+      {{checkbox-with-label
+        checked
+        update=(action (mut checked))
+      }}
+    `);
 
-test('it can disable the checkbox', function(assert) {
-  this.render(hbs`
-    {{checkbox-with-label disabled=true}}
-  `);
+    await click('input[type=checkbox]');
 
-  assert.ok(this.$('input[type=checkbox]').is(':disabled'));
-});
+    assert.ok(find('input[type=checkbox]:checked'));
+  });
 
-test('updates disabling of the checkbox when the disabled attr changes', function(assert) {
-  this.set('isDisabled', false);
+  test('it can disable the checkbox', async function(assert) {
+    await render(hbs`
+      {{checkbox-with-label
+        disabled=true
+      }}
+    `);
 
-  this.render(hbs`
-    {{checkbox-with-label disabled=isDisabled}}
-  `);
+    assert.ok(find('input[type=checkbox]').hasAttribute('disabled'));
+  });
 
-  assert.notOk(this.$('input[type=checkbox]').is(':disabled'));
+  test('updates disabling of the checkbox when the disabled attr changes', async function(assert) {
+    this.set('isDisabled', false);
 
-  this.set('isDisabled', true);
+    await render(hbs`
+      {{checkbox-with-label
+        disabled=isDisabled
+      }}
+    `);
 
-  assert.ok(this.$('input[type=checkbox]').is(':disabled'));
-});
+    assert.notOk(find('input[type=checkbox]').hasAttribute('disabled'));
 
-test('clicking does not update the checkbox when disabled', function(assert) {
-  this.set('checked', false);
+    this.set('isDisabled', true);
 
-  this.render(hbs`
-    {{checkbox-with-label
-      checked
-      disabled=true}}
-  `);
+    assert.ok(find('input[type=checkbox]').hasAttribute('disabled'));
+  });
 
-  this.$('input[type=checkbox]').click();
+  test('clicking does not update the checkbox when disabled', async function(assert) {
+    await render(hbs`
+      {{checkbox-with-label
+        checked
+        disabled=true
+        update=(action (mut checked))
+      }}
+    `);
 
-  assert.notOk(this.$('input[type=checkbox]').is(':checked'));
-  assert.notOk(this.get('checked'));
+    await click('input[type=checkbox]');
+
+    assert.notOk(find('input[type=checkbox]:checked'));
+    assert.notOk(this.get('checked'));
+  });
 });
