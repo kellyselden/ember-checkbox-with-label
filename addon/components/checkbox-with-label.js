@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { get } from '@ember/object';
 import layout from '../templates/components/checkbox-with-label';
 
-const MyComponent = Component.extend({
+export default Component.extend({
   layout,
 
   tagName: 'label',
@@ -13,13 +13,9 @@ const MyComponent = Component.extend({
     toggleChecked() {
       let checked = get(this, 'checked');
 
-      this.sendAction('update', !checked);
+      get(this, 'update')(!checked);
     }
   }
-});
-
-MyComponent.reopenClass({
+}).reopenClass({
   positionalParams: ['checked', 'text']
 });
-
-export default MyComponent;
