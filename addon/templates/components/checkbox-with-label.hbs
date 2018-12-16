@@ -1,8 +1,9 @@
-<input type="checkbox"
+<input
+  type="checkbox"
   checked={{checked}}
   onchange={{action "toggleChecked" value="target.value"}}
   disabled={{disabled}}
-/>
+>
 
 {{#if hasBlock}}
   {{yield}}
